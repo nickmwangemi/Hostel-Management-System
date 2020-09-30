@@ -1,21 +1,19 @@
 package com.mwangemi.hostelmanagementsystem.services;
 
+import com.mwangemi.hostelmanagementsystem.models.Allocation;
 import com.mwangemi.hostelmanagementsystem.models.GenericResponse;
-import com.mwangemi.hostelmanagementsystem.models.Room;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-
 @Service
-@Transactional
-public interface RoomService {
-    GenericResponse save(Room room);
+public interface AllocationService {
+    GenericResponse save(Allocation allocation);
 
     GenericResponse listAll();
 
     GenericResponse get(Long id);
 
-    GenericResponse update(Long id, Room room);
+    GenericResponse update(Long id, Allocation allocation);
 
     GenericResponse deleteById(Long id);
+
 }

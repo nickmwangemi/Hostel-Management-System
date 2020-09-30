@@ -1,12 +1,9 @@
 package com.mwangemi.hostelmanagementsystem.repositories;
 
-import com.mwangemi.hostelmanagementsystem.models.Room;
+import com.mwangemi.hostelmanagementsystem.models.Booking;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RoomRepository extends JpaRepository<Room, Long> {
-    // Fetch a list of rooms
-
-
+public interface BookingRepository extends JpaRepository<Booking, Long> {
 }

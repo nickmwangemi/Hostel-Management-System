@@ -20,8 +20,4 @@ public class Tenant implements Serializable {
     private String fullName;
     private String email;
     private String mobileNumber;
-
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "room_id", referencedColumnName = "id")
-//    private Room room;
 }

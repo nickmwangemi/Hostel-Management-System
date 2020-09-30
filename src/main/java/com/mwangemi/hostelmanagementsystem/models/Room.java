@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 @Table(name = "rooms")
@@ -20,22 +21,12 @@ public class Room implements Serializable {
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
 
-    private int numberOfOccupants;
-
     @Enumerated(EnumType.STRING)
     private Occupancy occupancy;
-
-    @Enumerated(EnumType.STRING)
-    private BookingStatus bookingStatus;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "hostel_id", referencedColumnName = "id")
     private Hostel hostel;
-
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "tenant_id", referencedColumnName = "id")
-    private Tenant tenant;
 
 
 }

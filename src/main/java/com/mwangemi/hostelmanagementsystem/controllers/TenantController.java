@@ -2,13 +2,11 @@ package com.mwangemi.hostelmanagementsystem.controllers;
 
 import com.mwangemi.hostelmanagementsystem.models.GenericResponse;
 import com.mwangemi.hostelmanagementsystem.models.Tenant;
-import com.mwangemi.hostelmanagementsystem.repositories.TenantRepository;
 import com.mwangemi.hostelmanagementsystem.services.TenantService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/tenants")
@@ -34,19 +32,25 @@ public class TenantController {
         return new ResponseEntity<>(genericResponse, HttpStatus.OK);
     }
 
-    // READ ALL Hostel Records
+    // READ ALL Tenant Records
     @GetMapping("")
     public ResponseEntity getTenants(){
         GenericResponse genericResponse =  tenantService.listAll();
         return new ResponseEntity<>(genericResponse, HttpStatus.OK);
     }
 
-    // UPDATE Hostel Record
+    // UPDATE Tenant Record
+    @PutMapping("/{id}")
+    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody Tenant tenant){
+        GenericResponse genericResponse = tenantService.update(id,tenant);
+        return new ResponseEntity<>(genericResponse, HttpStatus.OK);
+    }
 
-    // DELETE Hostel Record
-//    @DeleteMapping("/{id}")
-//    void deleteById(@PathVariable("id") Long id) {
-//        hostelRepository.deleteById(id);
-//    }
+    // DELETE Tenant Record
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable("id") Long id) {
+        GenericResponse genericResponse = tenantService.delete(id);
+        return new ResponseEntity<>(genericResponse,HttpStatus.OK);
+    }
 
 }

@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/hostels")
@@ -27,7 +26,7 @@ public class HostelController {
     @PostMapping("")
     public ResponseEntity create(@RequestBody Hostel hostel) {
         GenericResponse genericResponse = hostelService.save(hostel);
-        return new ResponseEntity<>(genericResponse, HttpStatus.CREATED);
+        return new ResponseEntity<>(genericResponse, HttpStatus.OK);
     }
 
     // READ ONE Hostel Record
@@ -45,6 +44,11 @@ public class HostelController {
     }
 
      // UPDATE Hostel Record
+    @PutMapping("/{id}")
+    public ResponseEntity updateHostel(@PathVariable("id") Long id, @RequestBody Hostel hostel){
+        GenericResponse genericResponse = hostelService.update(id,hostel);
+        return new ResponseEntity<>(genericResponse, HttpStatus.OK);
+    }
 
      // DELETE Hostel Record
     @DeleteMapping("/{id}")

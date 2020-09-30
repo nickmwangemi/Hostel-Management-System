@@ -44,16 +44,16 @@ public class RoomController {
 
     // UPDATE Room Record
     @PutMapping("/{id}")
-    public ResponseEntity updateRoom(@PathVariable("id") Long id){
-        GenericResponse genericResponse = roomService.update(id);
+    public ResponseEntity updateRoom(@PathVariable("id") Long id, @RequestBody Room room){
+        GenericResponse genericResponse = roomService.update(id,room);
         return new ResponseEntity<>(genericResponse, HttpStatus.OK);
     }
 
-    // DELETE Room Record
-//    @DeleteMapping("/{id}")
-//    void deleteById(@PathVariable("id") Long id) {
-//        roomRepository.deleteById(id);
-//    }
+     //DELETE Room Record
+    @DeleteMapping("/{id}")
+    void deleteById(@PathVariable("id") Long id) {
+        roomService.deleteById(id);
+    }
 
 
 

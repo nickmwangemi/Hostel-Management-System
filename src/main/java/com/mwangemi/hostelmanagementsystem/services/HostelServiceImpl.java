@@ -21,11 +21,11 @@ public class HostelServiceImpl implements HostelService {
 
     @Override
     public GenericResponse findAll() {
-        List<Hostel> hostelList=hostelRepository.findAll();
-        if (hostelList.size() > 0){
-            return new GenericResponse(200,"Request Successful. Fetched hostels.",hostelList);
+        List<Hostel> hostelList = hostelRepository.findAll();
+        if (hostelList.size() > 0) {
+            return new GenericResponse(200, "Request Successful. Fetched hostels.", hostelList);
         }
-        return new GenericResponse(200,"No Data Found");
+        return new GenericResponse(400, "No Data Found");
     }
 
     @Override
@@ -34,7 +34,7 @@ public class HostelServiceImpl implements HostelService {
         if (hostelToSave.getId() > 0) {
             return new GenericResponse(200, "Request Successful. Hostel Created", hostelToSave);
         }
-        return new GenericResponse(201, "Not Saved");
+        return new GenericResponse(400, "Not Saved");
     }
 
 
@@ -42,24 +42,33 @@ public class HostelServiceImpl implements HostelService {
     public GenericResponse findById(Long id) {
         Optional<Hostel> hostelOptional = hostelRepository.findById(id);
         if (hostelOptional.isPresent())
-            return new GenericResponse(200,"Request Successful. Hostel record fetched.",hostelOptional);
-        return new GenericResponse(201,"Request Failed! No Hostel details found or error");
+            return new GenericResponse(200, "Request Successful. Hostel record fetched.", hostelOptional);
+        return new GenericResponse(400, "Request Failed! No Hostel details found or error");
+    }
+
+
+    @Override
+    public GenericResponse update(Long id, Hostel hostel) {
+        Optional<Hostel> hostelToUpdate = hostelRepository.findById(id);
+        if (hostelToUpdate.isPresent()) {
+            hostelToUpdate.get().setName(hostel.getName());
+            hostelToUpdate.get().setLocation(hostel.getLocation());
+            hostelToUpdate.get().setNumberOfRooms(hostel.getNumberOfRooms());
+
+            Hostel updated = hostelRepository.save(hostelToUpdate.get());
+            return new GenericResponse(200, "Request Successful. Hostel record deleted.", updated);
+        }
+        return new GenericResponse(400, "Request failed! Hostel not updated.");
     }
 
     @Override
     public GenericResponse deleteById(Long id) {
-        hostelRepository.deleteById(id);
-        return new GenericResponse(200, "Request Successful. Hostel record deleted.");
+        Optional<Hostel> hostelOptional = hostelRepository.findById(id);
+        if(hostelOptional.isPresent()) {
+            hostelRepository.delete(hostelOptional.get());
+            return new GenericResponse(200, "Request Successful. Hostel record deleted.");
+        }
+        return new GenericResponse(400, "Request Failed! Hostel record not found or error.");
     }
-
-    @Override
-    public GenericResponse update(Long id) {
-        return null;
-    }
-
-
-
 }
-
-
 
